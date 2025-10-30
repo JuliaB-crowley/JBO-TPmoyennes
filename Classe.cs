@@ -14,6 +14,8 @@ namespace HNI_TPmoyennes
         //public Dictionary<int, string> matieres = new Dictionary<int, string>();
         public List<Eleve> eleves { get; set; }
         public List<string> matieres { get; set; }
+
+        //constructeur de la classe
         public Classe(string nom)
         {
             this.nomClasse = nom;
@@ -21,6 +23,7 @@ namespace HNI_TPmoyennes
             this.matieres = new List<string>();
         }
 
+        //créé objet Eleve et l'ajoute à la classe si elle compte moins de 30 élèves 
         public void ajouterEleve(string prenom, string nom)
         {
             if (this.eleves.Count < 30)
@@ -34,6 +37,7 @@ namespace HNI_TPmoyennes
             }
         }
 
+        //ajoute la matière à la liste des matières de la classe et augmente le compteur de matières par élève si moins de 10 matières enseignées
         public void ajouterMatiere(string numMatiere)
         {
             if (this.matieres.Count < 10)
@@ -50,17 +54,19 @@ namespace HNI_TPmoyennes
             }
         }
 
+        //calcule la moyenne de la classe dans la matière grace au numéro d'index de la matière et au nbre d'élèves de la classe
         public float moyenneMatiere(int numMatiere)
         {
             float moyenneMatiereClasse = 0;
             int nbreEleveClasse = this.eleves.Count;
 
-            for (int i = 0; i < nbreEleveClasse; i++)
-            {
-                moyenneMatiereClasse += this.eleves[i].moyenneMatiere(numMatiere);
-            }
+
             if (nbreEleveClasse > 0)
             {
+                for (int i = 0; i < nbreEleveClasse; i++)
+                {
+                    moyenneMatiereClasse += this.eleves[i].moyenneMatiere(numMatiere);
+                }
                 moyenneMatiereClasse /= nbreEleveClasse;
             }
             else
@@ -71,17 +77,19 @@ namespace HNI_TPmoyennes
             return MathF.Truncate(moyenneMatiereClasse * 100) / 100;
         }
 
+        //calcule la moyenne générale de la classe grace à la méthode moyenne et au nbre de matières de la classe
         public float moyenneGeneral()
         {
             float moyenneGeneralClasse = 0;
             int nbreMatiereClasse = this.matieres.Count;
 
-            for (int i = 0;i < nbreMatiereClasse; i++)
-            {
-                moyenneGeneralClasse += this.moyenneMatiere(i);
-            }
+
             if (nbreMatiereClasse > 0)
             {
+                for (int i = 0; i < nbreMatiereClasse; i++)
+                {
+                    moyenneGeneralClasse += this.moyenneMatiere(i);
+                }
                 moyenneGeneralClasse /= nbreMatiereClasse;
             }
             else

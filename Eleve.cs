@@ -13,6 +13,8 @@ namespace HNI_TPmoyennes
         List<Note> notes { get; set; }
 
         public int nbreMatieres { get; set; }
+
+        //constructeur d'élève
         public Eleve(string nomEleve, string prenomEleve) 
         { 
            this.prenom = prenomEleve;
@@ -21,26 +23,29 @@ namespace HNI_TPmoyennes
            this.nbreMatieres = 0;
         }
 
+        //calcule la moyenne générale en fonction du nbre de matières et de la moyenne par matière, si l'élève a des matières attribuées
         public float moyenneGeneral()
         {
             float moyenneGeneralEleve = 0;
 
-            for (int i = 0; i < this.nbreMatieres; i++)
-            {
-                moyenneGeneralEleve += this.moyenneMatiere(i);
 
-            }
             if (this.nbreMatieres > 0)
             {
+                for (int i = 0; i < this.nbreMatieres; i++)
+                {
+                    moyenneGeneralEleve += this.moyenneMatiere(i);
+
+                }
                 moyenneGeneralEleve /= this.nbreMatieres;
             }
             else
             {
-                Console.WriteLine("L'élève " + this.prenom + this.nom + "n'a pas de matières attribuées");
+                Console.WriteLine("L'élève " + this.prenom + " " + this.nom + " n'a pas de matières attribuées");
             }
             return MathF.Truncate(moyenneGeneralEleve * 100) / 100;
         }
 
+        //calcule la moyenne par matière si le numero de matière correspond à celui des notes et en fonction du nombre de notes concernées
         public float moyenneMatiere(int numMatiere)
         {
             float cumulMatiereEleve = 0;
@@ -65,12 +70,13 @@ namespace HNI_TPmoyennes
             }
             else
             {
-                Console.WriteLine("L'élève " + this.prenom + this.nom + "n'a pas de notes pour la matière");
+                Console.WriteLine("L'élève " + this.prenom + " " + this.nom + " n'a pas de notes pour la matière");
             }
 
             return MathF.Truncate(moyenneMatiereEleve*100)/100;
         }
 
+        //ajoute la note reçue à la liste des notes de l'élève si celle si n'est pas nulle et que l'élève en a - de 200
         internal void ajouterNote(Note note)
         {
             if (note == null)
@@ -84,7 +90,7 @@ namespace HNI_TPmoyennes
             }
             else
             {
-                Console.WriteLine("Nombre maximum de notes atteint pour " + this.prenom + this.nom);
+                Console.WriteLine("Nombre maximum de notes atteint pour " + this.prenom + " " + this.nom);
             }
 
         }
